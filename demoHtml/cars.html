@@ -1,0 +1,174 @@
+<html>
+<head>
+<title>Cars</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+  function showform(dowhat) {
+    /*
+    * four DIVS: browse, insert, update, delete
+    * this function sets one visible the others not
+    */
+    if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newCar() { showform('insert'); }
+  function updateCar(pid) { showform('update'); }
+  function deleteCar(pid) { showform ('delete'); }
+  function browseCars() { showform ('browse'); }
+  function showAll() { showform ('all'); }
+</script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="browseCars()">
+<h1>Cars</h1>
+
+<!--Navigation bar-->
+<div id="nav-placeholder">
+</div>
+<script>
+    $(function () {
+        $("#nav-placeholder").load("./navBar.html");
+    });
+</script>
+<!--end of Navigation bar-->
+<div id="browse" style="display: block"></div>
+<p><strong>All Cars</strong></p>
+<table border="1" cellpadding="5">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newCar()">New</a></th>
+    <th></th>
+    <th>Manufacturer</th>
+    <th>Model</th>
+    <th>Year Released</th>
+    <th>Engine</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCar('this.carID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCar('this.carID')">Delete</a></td>
+    <td ><a href="manuSingle.html">Chevrolet</a></td>
+    <td ><a href="carSingle.html">Silverado 1500</a></td>
+    <td align="center" >1996</td>
+    <td><a href="engineSingle.html">5.7L V8</a></td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCar('this.carID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCar('this.carID')">Delete</a></td>
+    <td ><a href="manuSingle.html">Chevrolet</a></td>
+    <td >RAM 1500</td>
+    <td align="center" >2014</td>
+    <td>5.7L V8</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCar('this.carID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCar('this.carID')">Delete</a></td>
+    <td>Ford</td>
+    <td >F150</td>
+    <td align="center">2015</td>
+    <td>5.0L V8</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form method="POST" id="addCar">
+        <legend><strong>Add Car</strong></legend>
+          <fieldset class="fields">
+            <label for="Manufacturer">Manufacturer:</label>
+            <select name="manuID" id="manuID">
+              <option value="0">Select One</option>
+              <option value="1">Chevrolet</option>
+              <option value="2">Ford</option>
+              <option value="3">Dodge</option>
+              <option value="4">Toyota</option>
+              <option value="5">Nissan</option>
+            </select><br>
+            <label> Model Name </label> <input type="text" name="model_name">
+            <br><label> Year Released </label> <input type="number" name="year_released">
+            <select name="engines" id="engineID">
+              <option value="1">1 (5.7L V8, 1996, Chevrolet)</option>
+              <option value="2">2 (5.0L V8, 2011, Ford)</option>
+              <option value="3">3 (5.7L V8, 2003, Dodge)</option>
+            </select>
+          </fieldset>
+          <input class="btn" type="submit" id="addCar" value="Add Car">
+          <input class="btn" type="button" value="cancel" onClick="browseCars()" >
+	</form> <!--add new car-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form method="POST" id="updateCar">
+      <legend><strong>Update Car</strong></legend>
+          <fieldset class="fields">
+            <label for="Manufacturer">Manufacturer:</label>
+            <select name="manuID" id="manuID">
+              <option value="1">Chevrolet</option>
+              <option value="2">Ford</option>
+              <option value="3">Dodge</option>
+              <option value="4">Toyota</option>
+              <option value="5">Nissan</option>
+            </select><br>
+            <label> Model Name </label> <input type="text" name="model_name" value="Silverado"><br>
+            <label> Year Released </label> <input type="number" name="year_released" value="1996">
+            <label for="Engine">Engine:</label>
+            <select name="engines" id="engineID">
+              <option value="1">1 (5.7L V8, 1996, Chevrolet)</option>
+              <option value="2">2 (5.0L V8, 2011, Ford)</option>
+              <option value="3">3 (5.7L V8, 2003, Dodge)</option>
+            </select>
+          </fieldset>
+
+    <input class="btn" type="submit" id="UpdateSaveCar" value="Save updated Car">
+          <input class="btn" type="button" value="cancel" onClick="browseCars()" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteCar">
+      <legend><strong>Delete Car</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <label>ID:</label> 1<br>
+            <label>Manufacturer: </label>Chevrolet<br>
+            <label>Model: </label>Silverado<br>
+            <label>Year Released: </label>1996<br>
+            <label>Engine: </label>5.7L V8
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteCar" value="Delete Car">
+          <input class="btn" type="button" value="cancel" onClick="browseCars()" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

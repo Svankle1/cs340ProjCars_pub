@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>people_have_cars</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+  function showform(dowhat) {
+    /*
+    * four DIVS: browse, insert, update, delete
+    * this function sets one visible the others not
+    */
+    if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newRelationship() { showform('insert'); }
+  function updateRelationship(pid) { showform('update'); }
+  function deleteRelationship(pid) { showform ('delete'); }
+  function browseRelationships() { showform ('browse'); }
+  function showAll() { showform ('all'); }
+</script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="browseRelationships()">
+<h1>people_have_cars</h1>
+
+<!--Navigation bar-->
+<div id="nav-placeholder">
+</div>
+<script>
+    $(function () {
+        $("#nav-placeholder").load("./navBar.html");
+    });
+</script>
+<!--end of Navigation bar-->
+<div id="browse" style="display: block">
+<p><strong>All Relationships</strong></p>
+<table border="1" cellpadding="5">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newRelationship()">New</a></th>
+    <th></th>
+    <th>intersectionID</th>
+    <th>Person (Name)</th>
+    <th>Person (ID)</th>
+    <th>Car (Model)</th>
+    <th>Car (ID)</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRelationship('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRelationship('this.manuID')">Delete</a></td>
+    <td >1</td>
+    <td ><a href="personSingle.html">Jerry Seinfeld</a></td>
+    <td >2</td>
+    <td>F150</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRelationship('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRelationship('this.manuID')">Delete</a></td>
+    <td >2</td>
+    <td >Jay Leno</td>
+    <td >1</td>
+    <td>F150</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRelationship('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRelationship('this.manuID')">Delete</a></td>
+    <td >3</td>
+    <td >Jay Leno</td>
+    <td >1</td>
+    <td><a href="carSingle.html">Silverado</a></td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRelationship('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRelationship('this.manuID')">Delete</a></td>
+    <td >4</td>
+    <td ><a href="personSingle.html">Jerry Seinfeld</a></td>
+    <td >2</td>
+    <td>RAM 1500</td>
+    <td>3</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form method="POST" id="addRelationship">
+        <legend><strong>Add Relationship</strong></legend>
+          <fieldset class="fields">
+            <label for="Person">Person:</label>
+            <select name="personID" id="personID">
+              <option value="0">Select One</option>
+              <option value="1">Jay Leno</option>
+              <option value="2">Jerry Seinfeld</option>
+              <option value="3">Floyd Mayweather</option>
+            </select><br>
+            <label for="Car">Car:</label>
+            <select name="autoID" id="autoID">
+              <option value="0">Select One</option>
+              <option value="1">Silverado</option>
+              <option value="2">F150</option>
+              <option value="3">RAM 1500</option>
+            </select><br>
+            
+          </fieldset>
+          
+          <input class="btn" type="submit" id="addRelationship" value="Add Relationship">
+          <input class="btn" type="button" value="cancel" onClick="browseRelationships()" >
+	</form> <!--add new manufacturer-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form method="POST" id="updateRelationship">
+      <legend><strong>Update Relationship</strong></legend>
+          <fieldset class="fields">
+            <p>ID is automatically assinged and cannot be changed</p>
+                <label for="Person">Person:</label>
+                <select name="personID" id="personID">
+                  <option value="1">Jay Leno</option>
+                  <option value="2" selected>Jerry Seinfeld</option>
+                  <option value="3">Floyd Mayweather</option>
+                </select><br>
+                <label for="Car">Car:</label>
+                <select name="autoID" id="autoID">
+                  <option value="1">Silverado</option>
+                  <option value="2" selected>F150</option>
+                  <option value="3">RAM 1500</option>
+                </select><br>
+          </fieldset>
+
+    <input class="btn" type="submit" id="UpdateSaveRelationship" value="Save updated Relationship">
+          <input class="btn" type="button" value="cancel" onClick="browseRelationships()" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteRelationship">
+    <legend><strong>Delete Relationship</strong></legend>
+      <fieldset class="fields">
+      <p>Are you sure you wish to delete the following?</p>        <label>intersectionID:</label> 1 <br>
+      <label> Name: </label>Jerry Seinfeld<br>
+      <label> Car: </label>F150<br>
+      <p>This will not remove the person nor the car from the database. The relationship between the two will be removed if you proceed.</p>
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteRelationship" value="Delete Relationship">
+          <input class="btn" type="button" value="cancel" onClick="browseRelationships()" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

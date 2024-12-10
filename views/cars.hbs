@@ -1,0 +1,102 @@
+{{!-- Create a table --}}
+<table id="car-table" border="1" cellpadding="5">>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr data-value={{this.autoID}}>>
+            <td>{{this.autoID}}</td>
+            <td>{{this.Model}}</td>
+            <td>{{this.YearReleased}}</td>
+            <td>{{this.Manufacturer}}</td>
+            <td>{{this.EngineID}}</td>
+            <td><button onclick="deleteCar({{this.autoID}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="/js/delete_car.js"></script>
+<h2>Add Car</h2>
+        <p>To add a new car, please enter its information below and click `Submit`!</p>
+        <form id="add-car-form" method="POST" action="add-car-form">
+            <label for="input-model">Model: </label>
+            <input type="text" name="input-model" id="input-model" required>
+
+            <label for="input-year">Year Released: </label>
+            <input type="number" min="1901" max="2024" name="input-year" id="input-year" required>
+            <br>
+            <label for="input-manuID">Manufacturer: </label>
+            <select name="input-manuID" id="input-manuID">
+                {{#each manuList}}
+                <option value="{{this.manuID}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+
+            <label for="input-engineSelect">Engines: </label>
+            <select name="input-engineSelect" id="input-engineSelect">
+                <!-- format:   1 (5.7L V8, 1996, Chevrolet) -->
+                {{#each engineList}}
+                <option value="{{this.engineID}}">{{this.engineID}} ({{this.displacement}}L V{{this.cylinder}}, {{this.year_released}} {{this.name}})</option>
+                {{/each}}
+            </select>
+
+            <input type="submit">
+        </form>
+
+<h2>Updating A Car</h2>
+<p>To update a specific car's stats select it from the drop-down menu on the left and their desired homeworld from the drop down menu on the right</p>
+<form id="update-car-form-ajax" method="PUT" action="update-car">
+
+    <label for="input-autoSelect">Car name: </label>
+    <select name="input-autoSelect" id="autoSelect" onchange="updateValues(document.getElementById('autoSelect').value)">
+        <option value="0">Select a Car</option>
+        {{#each data}}
+        <option value="{{this.autoID}}">{{this.Manufacturer}} {{this.Model}} {{this.YearReleased}}</option>
+        {{/each}}
+    </select>
+    <br>
+    <div id="restOfUpdateForm" style="display:none">
+        <label for="u-input-model">Model: </label>
+        <input type="text" name="u-input-model" id="u-input-model" required>
+
+        <label for="u-input-year">Year Released: </label>
+        <input type="number" min="1901" max="2024" name="u-input-year" id="u-input-year" required>
+        <br>
+        <label for="u-input-manuID">Manufacturer: </label>
+        <select name="u-input-manuID" id="u-input-manuID">
+            {{#each manuList}}
+            <option id="u-m{{this.manuID}}" value="{{this.manuID}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+        <label for="u-input-engineSelect">Engines: </label>
+        <select name="u-input-engineSelect" id="u-input-engineSelect">
+            <!-- format:   1 (5.7L V8, 1996, Chevrolet) -->
+            {{#each engineList}}
+            <option id="u-e{{this.engineID}}" value="{{this.engineID}}">{{this.engineID}} ({{this.displacement}}L V{{this.cylinder}}, {{this.year_released}} {{this.name}})</option>
+            {{/each}}
+        </select>
+
+
+        <input type="submit">
+    </div>
+
+</form>
+
+<script src="/js/update_car.js"></script>

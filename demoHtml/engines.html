@@ -1,0 +1,163 @@
+<html>
+<head>
+<title>Engines</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+  function showform(dowhat) {
+    /*
+    * four DIVS: browse, insert, update, delete
+    * this function sets one visible the others not
+    */
+    if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newEngine() { showform('insert'); }
+  function updateEngine(pid) { showform('update'); }
+  function deleteEngine(pid) { showform ('delete'); }
+  function browseEngines() { showform ('browse'); }
+  function showAll() { showform ('all'); }
+</script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="browseEngines()">
+<h1>Engines</h1>
+
+<!--Navigation bar-->
+<div id="nav-placeholder">
+</div>
+<script>
+    $(function () {
+        $("#nav-placeholder").load("./navBar.html");
+    });
+</script>
+<!--end of Navigation bar-->
+<div id="browse" style="display: block">
+<p><strong>All Engines</strong></p>
+<table border="1" cellpadding="5">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newEngine()">New</a></th>
+    <th></th>
+    <th>Manufacturer</th>
+    <th>Displacement</th>
+    <th>Cylinders</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateEngine('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteEngine('this.manuID')">Delete</a></td>
+    <td ><a href="manuSingle.html">Chevrolet</a></td>
+    <td >5.7</td>
+    <td align="center" >8</td>
+    <td><a href="engineSingle.html">View</a></td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateEngine('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteEngine('this.manuID')">Delete</a></td>
+    <td ><a href="manuSingle.html">Chevrolet</a></td>
+    <td >5.3</td>
+    <td align="center" >8</td>
+    <td>View</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateEngine('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteEngine('this.manuID')">Delete</a></td>
+    <td >Ford</td>
+    <td >3.5</td>
+    <td align="center" >6</td>
+    <td>View</td>
+  </tr>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form method="POST" id="addEngine">
+        <legend><strong>Add Engine</strong></legend>
+          <fieldset class="fields">
+            <label for="Manufacturer">Manufacturer:</label>
+            <select name="manuID" id="manuID">
+              <option value="0">Select One</option>
+              <option value="1">Chevrolet</option>
+              <option value="2">Ford</option>
+              <option value="3">Dodge</option>
+              <option value="4">Toyota</option>
+              <option value="5">Nissan</option>
+            </select><br>
+            <label> Displacement </label> <input type="number" name="displacement">
+            <label> Cylinders </label> <input type="number" name="cylinders">
+          </fieldset>
+          
+          <input class="btn" type="submit" id="addEngine" value="Add Engine">
+          <input class="btn" type="button" value="cancel" onClick="browseEngines()" >
+	</form> <!--add new manufacturer-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form method="POST" id="updateEngine">
+      <legend><strong>Update Engine</strong></legend>
+          <fieldset class="fields">
+            <label for="Manufacturer">Manufacturer:</label>
+              <select name="cars" id="cars">
+                <option value="1">Chevrolet</option>
+                <option value="2">Ford</option>
+                <option value="3">Dodge</option>
+                <option value="4">Toyota</option>
+                <option value="5">Nissan</option>
+              </select>
+              <br>
+            <label> Displacement </label> <input type="text" name="displacement" value="5.7">
+            <label> Cylinders </label> <input type="number" name="cylinders" value="8">
+          </fieldset>
+          <p>To add or remove cars from this Enginefacturer listing, go to the individual car page.</p> <br>
+
+    <input class="btn" type="submit" id="UpdateSaveEngine" value="Save updated Engine">
+          <input class="btn" type="button" value="cancel" onClick="browseEngines()" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteEngine">
+    <legend><strong>Delete Engine</strong></legend>
+      <fieldset class="fields">
+      <p>Are you sure you wish to delete the following?</p>        <label>E_ID:</label> 1 <br>
+      <label> Manufacturer: </label> Chevrolet<br>
+      <label> Displacement: </label> 5.7<br>
+      <label> Cylinders: </label> 8
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteEngine" value="Delete Engine">
+          <input class="btn" type="button" value="cancel" onClick="browseEngines()" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

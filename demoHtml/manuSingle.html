@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    -->
+    <!-- WEBSITE TITLE -->
+    <title>Chevrolet - Specific Manufacturer</title>
+    <script language="JavaScript">
+        function showform(dowhat) {
+          /*
+          * four DIVS: browse, insert, update, delete
+          * this function sets one visible the others not
+          */
+          if (dowhat == 'update'){
+            document.getElementById('browse').style.display = 'none';
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('delete').style.display = 'none';
+          }
+          else if (dowhat == 'delete'){
+            document.getElementById('browse').style.display = 'none';
+            document.getElementById('update').style.display = 'none';
+            document.getElementById('delete').style.display = 'block';
+          }
+          else if (dowhat == 'all'){
+            document.getElementById('browse').style.display = 'block';
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('delete').style.display = 'block';
+          }
+          else { //by default display browse
+            document.getElementById('browse').style.display = 'block';
+            document.getElementById('update').style.display = 'none';
+            document.getElementById('delete').style.display = 'none';
+          }
+        }
+        function mainView() { showform ('browse'); }
+        function editManu() { showform('update'); }
+        function deleteManu(pid) { showform ('delete'); }
+        function showAll() { showform ('all'); }
+      </script>
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="mainView()">
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- HEADER -->
+        <div class="row">
+            <div class="col">
+                <h1 class="logo text-center py-4">Single Manufacturer</h1>
+            </div>
+        </div>
+        <!-- MAIN CONTENT -->
+        <div class="row p-2">
+            <main class="col-12">
+                <div id="browse">
+                    <!--Navigation bar-->
+                    <div id="nav-placeholder">
+                    </div>
+                    <script>
+                        $(function () {
+                            $("#nav-placeholder").load("./navBar.html");
+                        });
+                    </script>
+                    <!--end of Navigation bar-->
+                    
+                    <!-- Main Content Area -->
+                    <h2>Chevrolet</h2>
+                    <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+                    <div class="card" style="width:400px">
+                        <div class="card-body">
+                            <!--<h4 class="card-title">Pratt &amp; Whitney J58</h4>-->
+                            <dl>
+                                <dt>Cars:</dt>Total: 1
+                                <dd><a href="carSingle.html">1996 Silverado</a></dd>
+                                <dt>Engines:</dt>
+                                    <dd><a href="engineSingle.html"> 5.7L V8</a></dd>
+                                <dt>Location:</dt>
+                                    <dd>Detroit, MI, USA
+                                    <!--(301) 897-6000 <br> -->
+                                    </dd>
+                                    
+                                <dt>Founded in</dt>
+                                    <dd>1996</dd>
+                            </dl>
+                            <br>
+                        </div>
+                        <td><a href="#" onClick="editManu()">Edit</a></td>
+                        <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+                    </div>
+                </div>
+                
+                <div id="update" style="display: block">
+                    <form method="POST" id="updateManu">
+                        <legend><strong>Edit Manufacturer</strong></legend>
+                            <fieldset class="fields">
+                              <label> Name </label> <input type="text" name="name" value="Chevrolet">
+                              <label> Address / Location </label> <input type="text" name="headquarter_location" value="DeUpdatetroit, MI, USA">
+                              <label> Year Established </label> <input type="number" name="year_established" value="1908">
+                            </fieldset>
+                            <p>To add or remove cars from this Manufacturer listing, go to the individual car page.</p> <br>
+                  
+                      <input class="btn" type="submit" id="UpdateSaveManu" value="Save updated Manufacturer">
+                            <input class="btn" type="button" value="cancel" onClick="mainView()" >
+                    </form> 
+                  </div><!-- update -->
+
+                <div id="delete" style="display: none">
+                    <form id="deleteManu">
+                        <legend><strong>Delete Manufacturer</strong></legend>
+                            <fieldset class="fields">
+                            <p>Are you sure you wish to delete the following?</p>
+                            <label>ID:</label> 1
+                              <label> Name </label> Chevrolet
+                              
+                      </fieldset>
+                      <input class="btn" type="submit" id="DeleteManu" value="Delete Manufacturer">
+                            <input class="btn" type="button" value="cancel" onClick="mainView()" >
+                    </form> 
+            </main>
+        </div>
+    </div>
+</body>
+</html>

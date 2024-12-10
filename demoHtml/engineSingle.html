@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    -->
+    <!-- WEBSITE TITLE -->
+    <title>Single Engine</title>
+    <script language="JavaScript">
+        function showform(dowhat) {
+          /*
+          * four DIVS: browse, insert, update, delete
+          * this function sets one visible the others not
+          */
+          if (dowhat == 'update'){
+            document.getElementById('browse').style.display = 'none';
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('delete').style.display = 'none';
+          }
+          else if (dowhat == 'delete'){
+            document.getElementById('browse').style.display = 'none';
+            document.getElementById('update').style.display = 'none';
+            document.getElementById('delete').style.display = 'block';
+          }
+          else if (dowhat == 'all'){
+            document.getElementById('browse').style.display = 'block';
+            document.getElementById('update').style.display = 'block';
+            document.getElementById('delete').style.display = 'block';
+          }
+          else { //by default display browse
+            document.getElementById('browse').style.display = 'block';
+            document.getElementById('update').style.display = 'none';
+            document.getElementById('delete').style.display = 'none';
+          }
+        }
+        function mainView() { showform ('browse'); }
+        function editEngine() { showform('update'); }
+        function deleteEngine(pid) { showform ('delete'); }
+        function showAll() { showform ('all'); }
+      </script>
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="mainView()">
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="logo text-center py-4">Single Engine</h1>
+        </div>
+      </div>
+    </div>
+        <!-- MAIN CONTENT -->
+        <div class="row p-2">
+            <main class="col-12">
+                <div id="browse">
+                  <!--Navigation bar-->
+                  <div id="nav-placeholder">
+                  </div>
+                  <script>
+                      $(function () {
+                          $("#nav-placeholder").load("./navBar.html");
+                      });
+                  </script>
+                  <!--end of Navigation bar-->
+                    <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+                    <!-- Main Content Area -->
+                    <div class="card" style="width:400px">
+                        <div class="card-body">
+                            <h2>E_ID: 1</h2>
+                            <dl>
+                                <dt>Engine Displacement:</dt>
+                                    <dd>5.7</dd>
+                                <dt>Engine Cylinder:</dt>
+                                    <dd>8</dd>
+                                <dt>Year Released:</dt>
+                                    <dd>1996</dd>
+                                <dt>Manufacturer:</dt>
+                                    <dd><a href="manuSingle.html">Chevrolet</a></dd>
+                            </dl>
+                            <br>
+                        </div>
+                        <td><a href="#" onClick="editEngine()">Edit</a></td>
+                        <td><a href="#" onclick="deleteEngine('this.manuID')">Delete</a></td>
+                    </div>
+                </div>
+
+                <div id="update">
+                    <form method="POST" id="UpdateEngine">
+                        <legend><strong>Update Engine</strong></legend>
+                          <fieldset class="fields">
+                          <input type="hidden" name="personID" id="updatepersonID" value="1">
+                          <label> ID (Can not be changed): </label> 1 <br>
+                            <label> Displacement </label> <input type="number" name="displacement" value="5.7" step="0.1">
+                            
+                            <label> Cylinder </label> <input type="number" name="displacement" value="8" step="1">
+                            <br>
+                            <label> Year </label> <input type="number" name="year_released" value="1996">
+                            <br><br>
+                            <label for="Manufacturer">Manufacturer:</label>
+                            <select name="cars" id="cars">
+                              <option value="1">Chevrolet</option>
+                              <option value="2">Ford</option>
+                              <option value="3">Dodge</option>
+                              <option value="4">Toyota</option>
+                              <option value="5">Nissan</option>
+                            </select>
+                            <br><br>
+                            
+                      </fieldset>
+                          <input class="btn" type="submit" id="UpdateSaveEngine" value="Save Update Engine">
+                          <input class="btn" type="button" value="cancel" onClick="mainView()">
+                    </form> 
+                </div><!-- update -->
+                <p>&nbsp;</p>
+                <div id="delete" style="display: block">
+                  <form method="POST" id="deleteEngine">
+                      <legend><strong>Delete Engine</strong></legend>
+                      <fieldset class="fields">
+                      <p>Are you sure you wish to delete the following?</p>        <label>E_ID:</label> 1 <br>
+                      <label> Manufacturer: </label> Chevrolet<br>
+                      <label> Displacement: </label> 5.7<br>
+                      <label> Cylinders: </label> 8
+                    </fieldset>
+                    
+                    <input class="btn" type="submit" id="DeleteEngine" value="Delete Engine">
+                          <input class="btn" type="button" value="cancel" onClick="mainView()">
+                  </form> 
+                </div><!-- delete -->
+            </main>
+        </div>
+    </div>
+</body>
+</html>

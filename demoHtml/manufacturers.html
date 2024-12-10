@@ -1,0 +1,158 @@
+<html>
+<head>
+<title>Manufacturers</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+  function showform(dowhat) {
+    /*
+    * four DIVS: browse, insert, update, delete
+    * this function sets one visible the others not
+    */
+    if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newManu() { showform('insert'); }
+  function updateManu(pid) { showform('update'); }
+  function deleteManu(pid) { showform ('delete'); }
+  function browseManufacturers() { showform ('browse'); }
+  function showAll() { showform ('all'); }
+</script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body onload="browseManufacturers()">
+<h1>Manufacturers</h1>
+
+<!--Navigation bar-->
+<div id="nav-placeholder">
+</div>
+<script>
+    $(function () {
+        $("#nav-placeholder").load("./navBar.html");
+    });
+</script>
+<!--end of Navigation bar-->
+<div id="browse" style="display: block">
+<p><strong>All Manufacturers</strong></p>
+<table border="1" cellpadding="5">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newManu()">New</a></th>
+    <th></th>
+    <th>name</th>
+    <th>Headquarter Location</th>
+    <th>Year Established</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateManu('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+    <td ><a href="manuSingle.html">Chevrolet</a></td>
+    <td >Detroit, MI, USA</td>
+    <td align="center" >1908</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateManu('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+    <td>Dodge</td>
+    <td >Auburn Hills, MI, USA</td>
+    <td align="center">0000</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateManu('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+    <td>Ford</td>
+    <td >Dearborn, MI, USA</td>
+    <td align="center">1903</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateManu('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+    <td>Toyota</td>
+    <td >Toyota City, Aichi, Japan</td>
+    <td align="center">1937</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateManu('this.manuID')">Edit</a></td>
+    <td><a href="#" onclick="deleteManu('this.manuID')">Delete</a></td>
+    <td>Nissan</td>
+    <td >Yokohama, Kanagawa, Japan</td>
+    <td align="center">1933</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form method="POST" id="addManu">
+        <legend><strong>Add Manufacturer</strong></legend>
+          <fieldset class="fields">
+            <label> Name </label> <input type="text" name="name">
+            <label> Address / Location </label> <input type="text" name="headquarter_location">
+            <label> Year Established </label> <input type="number" name="year_established">
+          </fieldset>
+          <p>You will be able to add cars to this Manufacturer after it is created and in our system.</p> <br>
+
+          <input class="btn" type="submit" id="addManu" value="Add Manufacturer">
+          <input class="btn" type="button" value="cancel" onClick="browseManufacturers()" >
+	</form> <!--add new manufacturer-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form method="POST" id="updateManu">
+      <legend><strong>Update Manufacturer</strong></legend>
+          <fieldset class="fields">
+            <label> Name </label> <input type="text" name="name" value="Chevrolet">
+            <label> Address / Location </label> <input type="text" name="headquarter_location" value="Detroit, MI, USA">
+            <label> Year Established </label> <input type="number" name="year_established" value="1908">
+          </fieldset>
+          <p>To add or remove cars from this Manufacturer listing, go to the individual car page.</p> <br>
+
+    <input class="btn" type="submit" id="UpdateSaveManu" value="Save updated Manufacturer">
+          <input class="btn" type="button" value="cancel" onClick="browseManufacturers()" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deleteManu">
+      <legend><strong>Delete Manufacturer</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <label>ID:</label> 1
+            <label> Name </label> Chevrolet
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteManu" value="Delete Manufacturer">
+          <input class="btn" type="button" value="cancel" onClick="browseManufacturers()" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

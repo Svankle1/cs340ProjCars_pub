@@ -1,0 +1,65 @@
+<h1>Manufacturers</h1>
+
+<table border="1" cellpadding="5" id="manufacturer-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.manuID}}>
+            <td>{{this.manuID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.headquarter_location}}</td>
+            <td>{{this.year_established}}</td>
+            <td><button onclick="deleteManu({{this.manuID}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="/js/delete_manufacturer.js"></script>
+<h2>Create a Manufacturer</h2>
+<form id="add-manu-form" method="POST" action="add-manu-form">
+    <label for="input-manu-name">Manufacturer Name: </label>
+    <input type="text" name="input-manu-name" id="input-manu-name" required>
+
+    <label for="input-manu-location">Headquarter Location: </label>
+    <input type="text" name="input-manu-location" id="input-manu-location" required>
+
+    <label for="input-manu-year-est">Year Established: </label>
+    <input type="number" name="input-manu-year-est" id="input-manu-year-est" min="1901" max="2024" value="1901" required>
+
+    <input type="submit">
+</form>
+
+<h2>Update a Manufacturer</h2>
+
+<form id="update-manu-form">
+    <label for="u-select-manu">Select Manufacturer: </label>
+    <select name="u-select-manu" id="u-select-manu" onchange="updateValues(document.getElementById('u-select-manu').value)">
+        <option value="test">Select a Manufacturer</option>
+        {{#each data}}
+        <option value="{{this.manuID}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <div id="restOfUpdateForm" style="display:none">
+
+        <label for="u-input-manuName">Rename Headquarter to...: </label>
+        <input type="text" name="u-input-manuName" id="u-input-manuName" required>
+
+        <label for="u-input-manu-location">Headquarter Location: </label>
+        <input type="text" name="u-input-manu-location" id="u-input-manu-location" required>
+
+        <label for="u-input-manu-year-est">Year Established: </label>
+        <input type="number" name="u-input-manu-year-est" id="u-input-manu-year-est" min="1901" max="2024" required>
+        <input type="submit">
+    </div>
+</form>
+<script src="/js/update_manufacturer.js"></script>
